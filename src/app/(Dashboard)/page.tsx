@@ -1,40 +1,60 @@
+"use client";
+
+import SideBar from "@/components/layout/sideBar";
 import TopBar from "@/components/layout/topBar";
-import { Box, Grid } from "@mui/material";
-import React from "react";
+import { Box } from "@mui/material";
 
-export default function page() {
+export default function Page() {
   return (
-    <Box sx={{ display: "flex" }}>
-      {/* sideBar */}
-      <Box sx={{ width: "360px" }}>sidebar</Box>
-
-      {/* top and main content */}
+    <Box sx={{ display: "flex", height: "100vh" }}>
+      
+      {/* Sidebar */}
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          bgcolor: "background.paper",
+          borderRight: "1px solid",
+          borderColor: "divider",
+          transition: ' 0.3s'
         }}
       >
-        {/* topbar */}
+        <SideBar/>
+      </Box>
+
+      {/* Main Area */}
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          bgcolor: "background.default",
+        }}
+      >
+        {/* TopBar */}
         <Box
           sx={{
-            height: "90px",
-            width: '100vh',
-            backgroundColor: 'background.paper'
+            height: "70px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderBottom: "1px solid",
+            borderColor: "divider",
+            bgcolor: "background.paper",
           }}
         >
-          <TopBar/>
+          <TopBar />
         </Box>
 
-        {/* main contetnt */}
+        {/* Content */}
         <Box
           sx={{
-            height: "100vh",
+            flex: 1,
+            p: 3,
+            overflow: "auto",
           }}
         >
-          main
-        </Box>
 
+
+        </Box>
       </Box>
     </Box>
   );
