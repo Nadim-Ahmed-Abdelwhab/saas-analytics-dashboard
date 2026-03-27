@@ -1,6 +1,21 @@
 'use client'
-import { createTheme } from "@mui/material/styles";
 
-const Theme = createTheme()
+import { createTheme } from "@mui/material"
+import { darkPalette, lightPalette } from "./palette";
 
-export default Theme;
+const getTheme = (mode : 'light' | 'dark') => createTheme({
+    palette: {
+        mode,
+        ...(mode === 'light' ? lightPalette : darkPalette)
+    },
+
+    shape: {
+      borderRadius: 12,
+    },
+
+    typography: {
+      fontFamily: "Inter, sans-serif",
+    }
+})
+export default getTheme;
+
