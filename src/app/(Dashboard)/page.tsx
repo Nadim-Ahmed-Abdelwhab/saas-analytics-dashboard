@@ -9,14 +9,7 @@ export default function Page() {
     <Box sx={{ display: "flex", height: "100vh" }}>
       
       {/* Sidebar */}
-      <Box
-        sx={{
-          bgcolor: "background.paper",
-          borderRight: "1px solid",
-          borderColor: "divider",
-          transition: ' 0.3s'
-        }}
-      >
+      <Box>
         <SideBar/>
       </Box>
 
@@ -30,17 +23,7 @@ export default function Page() {
         }}
       >
         {/* TopBar */}
-        <Box
-          sx={{
-            height: "70px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            borderBottom: "1px solid",
-            borderColor: "divider",
-            bgcolor: "background.paper",
-          }}
-        >
+        <Box>
           <TopBar />
         </Box>
 

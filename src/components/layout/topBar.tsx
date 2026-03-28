@@ -8,7 +8,7 @@ import { Dispatch } from "@/store/store";
 import { toggleSideBar } from "@/features/layOutSlice";
 
 export default function TopBar() {
-    const dispatch = useDispatch<Dispatch>();
+  const dispatch = useDispatch<Dispatch>();
   return (
     <Box
       sx={{
@@ -18,11 +18,14 @@ export default function TopBar() {
         alignItems: "center",
         justifyContent: "space-between",
         px: 2,
+        borderBottom: "1px solid",
+        borderColor: "divider",
+        bgcolor: "background.paper",
       }}
     >
       {/* LEFT */}
       <Box display="flex" alignItems="center" gap={2}>
-        <IconButton onClick={()=>dispatch(toggleSideBar())}>
+        <IconButton onClick={() => dispatch(toggleSideBar())}>
           <MenuIcon />
         </IconButton>
 
