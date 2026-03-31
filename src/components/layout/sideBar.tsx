@@ -2,15 +2,16 @@
 
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ArticleIcon from "@mui/icons-material/Article";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useSelector } from "react-redux";
-import { GlopalStore } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { GlopalStore, Dispatch } from "@/store/store";
+import { logOut } from "@/features/login";
 
 const links = [
   { label: "Overview", href: "/", icon: <DashboardIcon /> },
@@ -22,9 +23,13 @@ const links = [
 
 export default function SideBar() {
   const pathname = usePathname();
-  const open = useSelector(
-    (state: GlopalStore) => state.layout.sideBarOpen
-  );
+  const open = useSelector((state: GlopalStore) => state.layout.sideBarOpen);
+  const dispatch = useDispatch<Dispatch>();
+  const router = useRouter();
+  const handleLogout = () => {
+    dispatch(logOut());
+    router.push("/loginPage");
+  };
 
   return (
     <Box
@@ -82,7 +87,7 @@ export default function SideBar() {
       </Box>
 
       {/* Logout */}
-      <Box>
+      <Box component={"form"} onClick={handleLogout}>
         <Link href="#" style={{ textDecoration: "none" }}>
           <Box
             sx={{

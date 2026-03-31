@@ -23,7 +23,6 @@ export default function TopBar() {
         bgcolor: "background.paper",
       }}
     >
-      {/* LEFT */}
       <Box display="flex" alignItems="center" gap={2}>
         <IconButton onClick={() => dispatch(toggleSideBar())}>
           <MenuIcon />
@@ -44,7 +43,6 @@ export default function TopBar() {
         </Typography>
       </Box>
 
-      {/* RIGHT */}
       <Box display="flex" alignItems="center" gap={1}>
         <ThemeToggle />
       </Box>

@@ -1,11 +1,13 @@
 "use client";
 
+import ProtectedRoute from "@/components/appProtect/ProtectedRoute";
 import SideBar from "@/components/layout/sideBar";
 import TopBar from "@/components/layout/topBar";
 import { Box } from "@mui/material";
 
 export default function Page() {
   return (
+    <ProtectedRoute>
     <Box sx={{ display: "flex", height: "100vh" }}>
       
       {/* Sidebar */}
@@ -36,9 +38,9 @@ export default function Page() {
           }}
         >
 
-
         </Box>
       </Box>
     </Box>
+    </ProtectedRoute>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import StoreProvider from "./storeProvider";
+import StoreProvider from "./(Dashboard)/storeProvider";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 
 export default function RootLayout({
