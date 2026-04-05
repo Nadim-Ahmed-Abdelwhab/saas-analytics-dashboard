@@ -1,10 +1,10 @@
 "use client";
 
 import { useSelector } from "react-redux";
-import { GlopalStore } from "@/store/store";
+import { StoreState } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 
 export default function ProtectedRoute({
   children,
@@ -12,7 +12,7 @@ export default function ProtectedRoute({
   children: React.ReactNode;
 }) {
   const { isAuthenticated, loading } = useSelector(
-    (state: GlopalStore) => state.login,
+    (state: StoreState) => state.login,
   );
 
   const router = useRouter();
@@ -24,7 +24,14 @@ export default function ProtectedRoute({
   }, [loading, isAuthenticated]);
   if (loading) {
     return (
-      <Box>
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width:'100vh',
+        height: '100vh',
+      }}>
+        <Typography variant="h4">Loding...</Typography>
         <CircularProgress />
       </Box>
     );

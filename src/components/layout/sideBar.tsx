@@ -10,12 +10,12 @@ import ArticleIcon from "@mui/icons-material/Article";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useDispatch, useSelector } from "react-redux";
-import { GlopalStore, Dispatch } from "@/store/store";
+import { StoreState, Dispatch } from "@/store/store";
 import { logOut } from "@/features/login";
 
 const links = [
   { label: "Overview", href: "/", icon: <DashboardIcon /> },
-  { label: "Users", href: "/users", icon: <PeopleIcon /> },
+  { label: "Users", href: "/user", icon: <PeopleIcon /> },
   { label: "Products", href: "/products", icon: <InventoryIcon /> },
   { label: "Posts", href: "/posts", icon: <ArticleIcon /> },
   { label: "Cart", href: "/cart", icon: <ShoppingCartIcon /> },
@@ -23,12 +23,12 @@ const links = [
 
 export default function SideBar() {
   const pathname = usePathname();
-  const open = useSelector((state: GlopalStore) => state.layout.sideBarOpen);
+  const open = useSelector((state: StoreState) => state.layout.sideBarOpen);
   const dispatch = useDispatch<Dispatch>();
   const router = useRouter();
   const handleLogout = () => {
     dispatch(logOut());
-    router.push("/loginPage");
+    router.replace("/login");
   };
 
   return (
@@ -36,7 +36,7 @@ export default function SideBar() {
       sx={{
         width: open ? 220 : 80,
         transition: "0.3s",
-        height: "100vh",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -87,27 +87,26 @@ export default function SideBar() {
       </Box>
 
       {/* Logout */}
-      <Box component={"form"} onClick={handleLogout}>
-        <Link href="#" style={{ textDecoration: "none" }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: open ? "flex-start" : "center",
-              gap: 2,
-              px: 2,
-              py: 1.5,
-              borderRadius: 2,
-              color: "error.main",
-              "&:hover": {
-                bgcolor: "action.hover",
-              },
-            }}
-          >
-            <LogoutIcon />
-            {open && <Typography>Logout</Typography>}
-          </Box>
-        </Link>
+      <Box onClick={handleLogout}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: open ? "flex-start" : "center",
+            gap: 2,
+            px: 2,
+            py: 1.5,
+            borderRadius: 2,
+            color: "error.main",
+            cursor: "pointer",
+            "&:hover": {
+              bgcolor: "action.hover",
+            },
+          }}
+        >
+          <LogoutIcon />
+          {open && <Typography>Logout</Typography>}
+        </Box>
       </Box>
     </Box>
   );

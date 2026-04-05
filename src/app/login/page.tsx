@@ -1,5 +1,5 @@
 "use client";
-import { Dispatch, GlopalStore } from "@/store/store";
+import { Dispatch, StoreState } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -10,7 +10,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 export default function LoginPage() {
   const dispatch = useDispatch<Dispatch>();
   const router = useRouter();
-  const { error, loading } = useSelector((state: GlopalStore) => state.login);
+  const { error, loading } = useSelector((state: StoreState) => state.login);
 
   const formik = useFormik({
     initialValues: {

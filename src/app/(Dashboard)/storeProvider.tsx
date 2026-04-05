@@ -1,7 +1,7 @@
 "use client";
 
 import CssBaseline from "@mui/material/CssBaseline";
-import { store, GlopalStore, Dispatch } from "@/store/store";
+import { store, StoreState, Dispatch } from "@/store/store";
 import { ThemeProvider } from "@mui/material";
 import React, { useEffect, useMemo } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -12,7 +12,7 @@ import { setAuthReady, setUser } from "@/features/login";
 function AppWrapper({ children }: { children: React.ReactNode }) {
   const dispatch = useDispatch<Dispatch>();
 
-  const { mode } = useSelector((state: GlopalStore) => state.theme);
+  const { mode } = useSelector((state: StoreState) => state.theme);
 
   // 🎨 Theme
   const theme = useMemo(() => getTheme(mode), [mode]);
