@@ -17,7 +17,7 @@ const links = [
   { label: "Overview", href: "/", icon: <DashboardIcon /> },
   { label: "Users", href: "/user", icon: <PeopleIcon /> },
   { label: "Products", href: "/products", icon: <InventoryIcon /> },
-  { label: "Posts", href: "/posts", icon: <ArticleIcon /> },
+  { label: "Post", href: "/post", icon: <ArticleIcon /> },
   { label: "Cart", href: "/cart", icon: <ShoppingCartIcon /> },
 ];
 

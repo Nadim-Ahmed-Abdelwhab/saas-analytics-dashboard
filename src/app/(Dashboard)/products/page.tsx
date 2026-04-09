@@ -1,7 +1,9 @@
 "use client";
 
+import { addToCart } from "@/features/cartSlice";
 import { productsData } from "@/features/productSlice";
 import { Dispatch, StoreState } from "@/store/store";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import {
   Box,
   Typography,
@@ -13,6 +15,9 @@ import {
   Chip,
   TextField,
   Rating,
+  Snackbar,
+  Alert,
+  IconButton,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -23,17 +28,17 @@ export default function ProductsPage() {
   const router = useRouter();
 
   const { product, error, loading } = useSelector(
-    (state: StoreState) => state.product,
+    (state: StoreState) => state.product
   );
 
   const limit = 12;
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState(search);
+  const [openToast, setOpenToast] = useState(false);
 
   const totalPages = Math.ceil((product?.total || 0) / limit);
 
-  //  debounce
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(search);
@@ -42,18 +47,43 @@ export default function ProductsPage() {
     return () => clearTimeout(timer);
   }, [search]);
 
-  //   fetch
   useEffect(() => {
     dispatch(
       productsData({
         limit,
         skip: page * limit,
         search: debouncedSearch || undefined,
-      }),
+      })
     );
   }, [dispatch, page, debouncedSearch]);
 
-  //  loading
+  const handleAddToCart = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    p: {
+      id: number;
+      title: string;
+      price: number;
+      thumbnail: string;
+    }
+  ) => {
+    e.stopPropagation();
+
+    dispatch(
+      addToCart({
+        id: p.id,
+        title: p.title,
+        price: p.price,
+        thumbnail: p.thumbnail,
+        quantity: 1,
+        total: p.price,
+        discountPercentage: 0,
+        discountedTotal: p.price,
+      })
+    );
+
+    setOpenToast(true);
+  };
+
   if (loading) {
     return (
       <Box display="flex" justifyContent="center" mt={10}>
@@ -62,7 +92,6 @@ export default function ProductsPage() {
     );
   }
 
-  // error
   if (error) {
     return (
       <Typography color="error" textAlign="center" mt={5}>
@@ -73,7 +102,6 @@ export default function ProductsPage() {
 
   return (
     <Box>
-      {/* Header */}
       <Box mb={4}>
         <Typography variant="h4" fontWeight={700}>
           Products
@@ -83,7 +111,6 @@ export default function ProductsPage() {
         </Typography>
       </Box>
 
-      {/* Search */}
       <Box mb={3}>
         <TextField
           fullWidth
@@ -96,17 +123,16 @@ export default function ProductsPage() {
         />
       </Box>
 
-      {/* Grid */}
       <Grid container spacing={2}>
         {product?.products.map((p) => (
           <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={p.id}>
             <Card
-              onClick={() => router.push(`/products/${p.id}`)}
               sx={{
                 p: 2,
                 borderRadius: 3,
-                cursor: "pointer",
                 transition: "0.3s",
+                position: "relative",
+                height: "100%",
 
                 "&:hover": {
                   transform: "translateY(-6px)",
@@ -114,8 +140,34 @@ export default function ProductsPage() {
                 },
               }}
             >
-              {/* Image */}
-              <Box display="flex" justifyContent="center" mb={2}>
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 10,
+                  right: 10,
+                }}
+              >
+                <IconButton
+                  onClick={(e) =>
+                    handleAddToCart(e, {
+                      id: p.id,
+                      title: p.title,
+                      price: p.price,
+                      thumbnail: p.thumbnail,
+                    })
+                  }
+                >
+                  <AddShoppingCartIcon />
+                </IconButton>
+              </Box>
+
+              <Box
+                display="flex"
+                justifyContent="center"
+                mb={2}
+                sx={{ cursor: "pointer" }}
+                onClick={() => router.push(`/products/${p.id}`)}
+              >
                 <Avatar
                   src={p.thumbnail}
                   variant="rounded"
@@ -123,12 +175,15 @@ export default function ProductsPage() {
                 />
               </Box>
 
-              {/* Title */}
-              <Typography fontWeight={600} textAlign="center">
+              <Typography
+                fontWeight={600}
+                textAlign="center"
+                sx={{ cursor: "pointer" }}
+                onClick={() => router.push(`/products/${p.id}`)}
+              >
                 {p.title}
               </Typography>
 
-              {/* Brand */}
               <Typography
                 textAlign="center"
                 fontSize={13}
@@ -137,26 +192,32 @@ export default function ProductsPage() {
                 {p.brand}
               </Typography>
 
-              {/* Price */}
               <Typography textAlign="center" fontWeight={700} mt={1}>
                 ${p.price}
               </Typography>
 
-              {/* Rating */}
               <Box display="flex" justifyContent="center" mt={1}>
                 <Rating value={p.rating} precision={0.1} readOnly />
               </Box>
 
-              {/* Category */}
               <Box display="flex" justifyContent="center" mt={2}>
                 <Chip label={p.category} size="small" />
+              </Box>
+
+              <Box display="flex" justifyContent="center" mt={2}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => router.push(`/products/${p.id}`)}
+                >
+                  View Details
+                </Button>
               </Box>
             </Card>
           </Grid>
         ))}
       </Grid>
 
-      {/* Pagination */}
       <Box
         mt={5}
         display="flex"
@@ -173,7 +234,7 @@ export default function ProductsPage() {
         </Button>
 
         <Typography fontWeight={500}>
-          Page {page + 1} / {totalPages} 
+          Page {page + 1} / {totalPages}
         </Typography>
 
         <Button
@@ -184,6 +245,17 @@ export default function ProductsPage() {
           Next
         </Button>
       </Box>
+
+      <Snackbar
+        open={openToast}
+        autoHideDuration={2000}
+        onClose={() => setOpenToast(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert severity="success" variant="filled" onClose={() => setOpenToast(false)}>
+          Added to cart successfully
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
