@@ -34,15 +34,15 @@ export default function OverviewPage() {
   const router = useRouter();
 
   const { userData, loading: usersLoading } = useSelector(
-    (state: StoreState) => state.user
+    (state: StoreState) => state.user,
   );
 
   const { product, loading: productsLoading } = useSelector(
-    (state: StoreState) => state.product
+    (state: StoreState) => state.product,
   );
 
   const { postData, loading: postsLoading } = useSelector(
-    (state: StoreState) => state.post
+    (state: StoreState) => state.post,
   );
 
   const { cartData } = useSelector((state: StoreState) => state.cart);
@@ -64,18 +64,31 @@ export default function OverviewPage() {
     <ProtectedRoute>
       <Box>
         {/* Header */}
-        <Box mb={4}>
-          <Typography variant="h4" fontWeight={700}>
+        <Box
+          sx={{
+            mb: 2,
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 600,
+            }}
+          >
             Dashboard Overview
           </Typography>
-          <Typography color="text.secondary">
-            Analytics & insights
-          </Typography>
+          <Typography color="text.secondary">Analytics & insights</Typography>
         </Box>
 
         {/* Loading */}
         {loading && (
-          <Box display="flex" justifyContent="center" mt={10}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mt: 10,
+            }}
+          >
             <CircularProgress />
           </Box>
         )}
@@ -85,12 +98,13 @@ export default function OverviewPage() {
           {/* Users */}
           <Grid size={{ xs: 12, md: 3 }}>
             <Card sx={{ borderRadius: 3 }}>
-              <CardActionArea onClick={() => router.push("/user")} sx={{ p: 2 }}>
+              <CardActionArea
+                onClick={() => router.push("/user")}
+                sx={{ p: 2 }}
+              >
                 <PeopleIcon sx={{ fontSize: 40 }} />
                 <Typography>Users</Typography>
-                <Typography variant="h5">
-                  {userData?.total || 0}
-                </Typography>
+                <Typography variant="h5">{userData?.total || 0}</Typography>
               </CardActionArea>
             </Card>
           </Grid>
@@ -98,12 +112,13 @@ export default function OverviewPage() {
           {/* Products */}
           <Grid size={{ xs: 12, md: 3 }}>
             <Card sx={{ borderRadius: 3 }}>
-              <CardActionArea onClick={() => router.push("/products")} sx={{ p: 2 }}>
+              <CardActionArea
+                onClick={() => router.push("/products")}
+                sx={{ p: 2 }}
+              >
                 <InventoryIcon sx={{ fontSize: 40 }} />
                 <Typography>Products</Typography>
-                <Typography variant="h5">
-                  {product?.total || 0}
-                </Typography>
+                <Typography variant="h5">{product?.total || 0}</Typography>
               </CardActionArea>
             </Card>
           </Grid>
@@ -111,12 +126,13 @@ export default function OverviewPage() {
           {/* Posts */}
           <Grid size={{ xs: 12, md: 3 }}>
             <Card sx={{ borderRadius: 3 }}>
-              <CardActionArea onClick={() => router.push("/post")} sx={{ p: 2 }}>
+              <CardActionArea
+                onClick={() => router.push("/post")}
+                sx={{ p: 2 }}
+              >
                 <ArticleIcon sx={{ fontSize: 40 }} />
                 <Typography>Posts</Typography>
-                <Typography variant="h5">
-                  {postData?.total || 0}
-                </Typography>
+                <Typography variant="h5">{postData?.total || 0}</Typography>
               </CardActionArea>
             </Card>
           </Grid>
@@ -134,10 +150,20 @@ export default function OverviewPage() {
         </Grid>
 
         {/* Charts */}
-        <Grid container spacing={3} mt={2}>
+        <Grid
+          container
+          spacing={3}
+          sx={{
+            mt: 2,
+          }}
+        >
           <Grid size={{ xs: 12, md: 6 }}>
             <Card sx={{ p: 2, borderRadius: 3 }}>
-              <Typography mb={2}>
+              <Typography
+                sx={{
+                  mb: 2,
+                }}
+              >
                 Users Growth (Last 5 Months)
               </Typography>
               <UsersChart total={userData?.total || 0} />
@@ -146,7 +172,13 @@ export default function OverviewPage() {
 
           <Grid size={{ xs: 12, md: 6 }}>
             <Card sx={{ p: 2, borderRadius: 3 }}>
-              <Typography mb={2}>Products Categories</Typography>
+              <Typography
+                sx={{
+                  mb: 1,
+                }}
+              >
+                Products Categories
+              </Typography>
               <ProductsPie products={product?.products || []} />
             </Card>
           </Grid>

@@ -59,8 +59,10 @@ export default function PostDetailsClient({
   return (
     <Box>
       {/* Header */}
-      <Box mb={4}>
-        <Typography variant="h4" fontWeight={700}>
+      <Box sx={{
+        mb: 4
+      }}>
+        <Typography variant="h4" sx={{fontWeight: 700}}>
           Post Details
         </Typography>
         <Typography color="text.secondary">
@@ -71,31 +73,36 @@ export default function PostDetailsClient({
       <Card sx={{ borderRadius: 4, p: 3 }}>
         <CardContent>
           {/* Title */}
-          <Typography variant="h5" fontWeight={700} mb={2}>
+          <Typography variant="h5" sx={{fontWeight: 700 , mb: 2}}>
             {post.title}
           </Typography>
 
           {/* Body */}
-          <Typography color="text.secondary" mb={3}>
+          <Typography color="text.secondary" sx={{mb:3}}>
             {post.body}
           </Typography>
 
           {/* Tags */}
-          <Box display="flex" gap={1} flexWrap="wrap" mb={3}>
+          <Box
+          sx={{display: 'flex', gap: 1 , flexWrap: 'wrap' , mb: 3}}>
             {post.tags.map((tag, index) => (
               <Chip key={index} label={tag} size="small" />
             ))}
           </Box>
 
           {/* Reactions */}
-          <Typography mb={2}>
+          <Typography sx={{
+            mb:2
+          }}>
              {post.reactions.likes} |  {post.reactions.dislikes}
           </Typography>
 
           <Divider sx={{ my: 3 }} />
 
           {/* ADD COMMENT */}
-          <Box mb={3}>
+          <Box sx={{
+            mb:2
+          }}>
             <TextField
               fullWidth
               placeholder="Write a comment..."
@@ -116,7 +123,10 @@ export default function PostDetailsClient({
           <Divider sx={{ my: 3 }} />
 
           {/* COMMENTS */}
-          <Typography fontWeight={600} mb={2}>
+          <Typography sx={{
+            mb:2,
+            fontWeight: 600
+          }}>
             Comments
           </Typography>
 
@@ -126,22 +136,35 @@ export default function PostDetailsClient({
             commentsList.map((c) => (
               <Box
                 key={c.id}
-                mb={2}
-                p={2}
-                borderRadius={2}
-                bgcolor="background.default"
+
+                sx={{mb:2 , p: 2 ,borderRadius:2 ,bgcolor: "background.default"}}
               >
-                <Box display="flex" alignItems="center" gap={1} mb={1}>
+                <Box 
+                sx={{
+                  
+                  display:"flex", alignItems:"center" ,gap: 1, mb:1
+                }}
+                >
                   <Avatar sx={{ width: 30, height: 30 }}>
                     {c.user.username.charAt(0).toUpperCase()}
                   </Avatar>
 
-                  <Typography fontWeight={600} fontSize={14}>
+                  <Typography 
+                  sx={{
+
+                    fontWeight: 600, fontSize:14
+                  }}
+                  >
                     {c.user.username}
                   </Typography>
                 </Box>
 
-                <Typography fontSize={14} color="text.secondary">
+                <Typography 
+                sx={{
+
+                  fontSize: 14 , color: "text.secondary"
+                }}
+                >
                   {c.body}
                 </Typography>
               </Box>

@@ -27,10 +27,9 @@ export default function UsersPage() {
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
   const limit = 12;
-  
+
   const totalPages = Math.ceil((userData?.total || 0) / limit);
   const [debouncedSearch, setDebouncedSearch] = useState(search);
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -46,7 +45,13 @@ export default function UsersPage() {
   //  Loading
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" mt={10}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: 10,
+        }}
+      >
         <CircularProgress />
       </Box>
     );
@@ -55,7 +60,7 @@ export default function UsersPage() {
   //  Error
   if (error) {
     return (
-      <Typography color="error" textAlign="center" mt={5}>
+      <Typography sx={{ textAlign: "center", color: "error", mt: 5 }}>
         {error}
       </Typography>
     );
@@ -64,8 +69,17 @@ export default function UsersPage() {
   return (
     <Box>
       {/* Header */}
-      <Box mb={4}>
-        <Typography variant="h4" fontWeight={700}>
+      <Box
+        sx={{
+          mb: 4,
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 700,
+          }}
+        >
           Users
         </Typography>
         <Typography color="text.secondary">
@@ -73,7 +87,11 @@ export default function UsersPage() {
         </Typography>
       </Box>
 
-      <Box mb={2}>
+      <Box
+        sx={{
+          mb: 2,
+        }}
+      >
         <TextField
           fullWidth
           placeholder="Search users..."
@@ -105,7 +123,13 @@ export default function UsersPage() {
               }}
             >
               {/* Avatar */}
-              <Box display="flex" justifyContent="center" mb={2}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 2,
+                }}
+              >
                 <Avatar
                   src={u.image}
                   sx={{
@@ -116,21 +140,29 @@ export default function UsersPage() {
               </Box>
 
               {/* Name */}
-              <Typography textAlign="center" fontWeight={600}>
+              <Typography sx={{ textAlign: "center", fontWeight: 600 }}>
                 {u.firstName} {u.lastName}
               </Typography>
 
               {/* Email */}
               <Typography
-                textAlign="center"
-                fontSize={13}
-                color="text.secondary"
+                sx={{
+                  textAlign: "center",
+                  fontSize: 13,
+                  color: "text.secondary",
+                }}
               >
                 {u.email}
               </Typography>
 
               {/* Role */}
-              <Box display="flex" justifyContent="center" mt={2}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mt: 2,
+                }}
+              >
                 <Chip
                   label={u.role}
                   color={
@@ -150,11 +182,13 @@ export default function UsersPage() {
 
       {/* Pagination */}
       <Box
-        mt={5}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        gap={2}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: 2,
+          gap: 2,
+          alignItems: "center",
+        }}
       >
         <Button
           variant="outlined"
@@ -164,7 +198,7 @@ export default function UsersPage() {
           Prev
         </Button>
 
-        <Typography fontWeight={500}>
+        <Typography sx={{fontWeight:500}}>
           Page {page + 1} / {totalPages}
         </Typography>
 

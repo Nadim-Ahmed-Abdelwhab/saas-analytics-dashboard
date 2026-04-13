@@ -39,7 +39,7 @@ export default function ProductDetailsClient({
         total: product.price,
         discountPercentage: 0,
         discountedTotal: product.price,
-      })
+      }),
     );
 
     setOpenToast(true);
@@ -48,8 +48,17 @@ export default function ProductDetailsClient({
   return (
     <Box>
       {/* Header */}
-      <Box mb={4}>
-        <Typography variant="h4" fontWeight={700}>
+      <Box
+        sx={{
+          mb: 4,
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 700,
+          }}
+        >
           Product Details
         </Typography>
         <Typography color="text.secondary">
@@ -63,7 +72,12 @@ export default function ProductDetailsClient({
           <Grid container spacing={4}>
             {/* Image */}
             <Grid size={{ xs: 12, md: 4 }}>
-              <Box display="flex" justifyContent="center">
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
                 <Avatar
                   src={product.thumbnail}
                   variant="rounded"
@@ -74,31 +88,67 @@ export default function ProductDetailsClient({
 
             {/* Info */}
             <Grid size={{ xs: 12, md: 8 }}>
-              <Typography variant="h5" fontWeight={700}>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 700,
+                }}
+              >
                 {product.title}
               </Typography>
 
-              <Typography color="text.secondary" mb={1}>
+              <Typography
+                sx={{
+                  color: "text.secondary",
+                  mb: 1,
+                }}
+              >
                 {product.brand}
               </Typography>
 
-              <Typography fontSize={20} fontWeight={700}>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  fontSize: 20,
+                }}
+              >
                 ${product.price}
               </Typography>
 
-              <Box display="flex" alignItems="center" gap={1} mt={1}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  mt: 1,
+                }}
+              >
                 <Rating value={product.rating} precision={0.1} readOnly />
                 <Typography>({product.rating})</Typography>
               </Box>
 
-              <Box mt={2}>
+              <Box
+                sx={{
+                  mt: 2,
+                }}
+              >
                 <Chip label={product.category} />
               </Box>
 
-              <Typography mt={2}>{product.description}</Typography>
+              <Typography
+                sx={{
+                  mt: 2,
+                }}
+              >
+                {product.description}
+              </Typography>
 
               {/*  ADD TO CART BUTTON */}
-              <Box mt={3}>
+              <Box
+                sx={{
+                  mt: 3,
+                }}
+              >
                 <Button variant="contained" onClick={handleAddToCart}>
                   Add to Cart
                 </Button>
@@ -111,14 +161,24 @@ export default function ProductDetailsClient({
           {/* Stock */}
           <Grid container spacing={2}>
             <Grid size={{ xs: 6 }}>
-              <Typography fontWeight={600}>Stock</Typography>
-              <Typography color="text.secondary">
-                {product.stock}
+              <Typography
+                sx={{
+                  fontWeight: 600,
+                }}
+              >
+                Stock
               </Typography>
+              <Typography color="text.secondary">{product.stock}</Typography>
             </Grid>
 
             <Grid size={{ xs: 6 }}>
-              <Typography fontWeight={600}>Availability</Typography>
+              <Typography
+                sx={{
+                  fontWeight: 600,
+                }}
+              >
+                Availability
+              </Typography>
               <Typography color="text.secondary">
                 {product.availabilityStatus}
               </Typography>
@@ -128,7 +188,12 @@ export default function ProductDetailsClient({
           <Divider sx={{ my: 3 }} />
 
           {/* Dimensions */}
-          <Typography fontWeight={600} mb={1}>
+          <Typography
+            sx={{
+              fontWeight: 600,
+              mb: 1,
+            }}
+          >
             Dimensions
           </Typography>
           <Typography color="text.secondary">
@@ -139,20 +204,45 @@ export default function ProductDetailsClient({
           <Divider sx={{ my: 3 }} />
 
           {/* Reviews */}
-          <Typography fontWeight={600} mb={2}>
+          <Typography
+            sx={{
+              fontWeight: 600,
+              mb: 2,
+            }}
+          >
             Reviews
           </Typography>
 
           {product.reviews.map((review, index) => (
-            <Box key={index} mb={2}>
-              <Box display="flex" alignItems="center" gap={1}>
+            <Box
+              key={index}
+              sx={{
+                mb: 2,
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                }}
+              >
                 <Rating value={review.rating} readOnly size="small" />
-                <Typography fontSize={13}>
+                <Typography
+                  sx={{
+                    fontSize: 13,
+                  }}
+                >
                   {review.reviewerName}
                 </Typography>
               </Box>
 
-              <Typography fontSize={13} color="text.secondary">
+              <Typography
+                sx={{
+                  fontSize: 13,
+                }}
+                color="text.secondary"
+              >
                 {review.comment}
               </Typography>
             </Box>

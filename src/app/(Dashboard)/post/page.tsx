@@ -21,7 +21,7 @@ export default function PostsPage() {
   const router = useRouter();
 
   const { error, loading, postData } = useSelector(
-    (state: StoreState) => state.post
+    (state: StoreState) => state.post,
   );
 
   const limit = 12;
@@ -47,14 +47,20 @@ export default function PostsPage() {
         limit,
         skip: page * limit,
         search: debouncedSearch || undefined,
-      })
+      }),
     );
   }, [dispatch, page, debouncedSearch]);
 
   // loading
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" mt={10}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: 10,
+        }}
+      >
         <CircularProgress />
       </Box>
     );
@@ -63,7 +69,7 @@ export default function PostsPage() {
   // error
   if (error) {
     return (
-      <Typography color="error" textAlign="center" mt={5}>
+      <Typography sx={{ textAlign: "center", color: "error", mt: 5 }}>
         Something went wrong
       </Typography>
     );
@@ -72,8 +78,17 @@ export default function PostsPage() {
   return (
     <Box>
       {/* Header */}
-      <Box mb={4}>
-        <Typography variant="h4" fontWeight={700}>
+      <Box
+        sx={{
+          mb: 4,
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 700,
+          }}
+        >
           Posts
         </Typography>
         <Typography color="text.secondary">
@@ -82,7 +97,11 @@ export default function PostsPage() {
       </Box>
 
       {/* Search */}
-      <Box mb={3}>
+      <Box
+        sx={{
+          mb: 3,
+        }}
+      >
         <TextField
           fullWidth
           placeholder="Search posts..."
@@ -114,24 +133,46 @@ export default function PostsPage() {
               }}
             >
               {/* Title */}
-              <Typography fontWeight={600} mb={1}>
+              <Typography
+                sx={{
+                  fontWeight: 600,
+                  mb: 1,
+                }}
+              >
                 {p.title}
               </Typography>
 
               {/* Body */}
-              <Typography fontSize={13} color="text.secondary" mb={2}>
+              <Typography
+                sx={{
+                  fontSize: 13,
+                  color: "text.secondary",
+                  mb: 2,
+                }}
+              >
                 {p.body.slice(0, 80)}...
               </Typography>
 
               {/* Tags */}
-              <Box display="flex" gap={1} flexWrap="wrap" mb={2}>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 1,
+                  flexWrap: "wrap",
+                  mb: 2,
+                }}
+              >
                 {p.tags.map((tag, index) => (
                   <Chip key={index} label={tag} size="small" />
                 ))}
               </Box>
 
               {/* Reactions */}
-              <Typography fontSize={13}>
+              <Typography
+                sx={{
+                  fontSize: 13,
+                }}
+              >
                 👍 {p.reactions.likes} | 👎 {p.reactions.dislikes}
               </Typography>
             </Card>
@@ -141,11 +182,13 @@ export default function PostsPage() {
 
       {/* Pagination */}
       <Box
-        mt={5}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        gap={2}
+        sx={{
+          mt: 5,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 2,
+        }}
       >
         <Button
           variant="outlined"
@@ -155,7 +198,11 @@ export default function PostsPage() {
           Prev
         </Button>
 
-        <Typography fontWeight={500}>
+        <Typography
+          sx={{
+            fontWeight: 500,
+          }}
+        >
           Page {page + 1} / {totalPages}
         </Typography>
 

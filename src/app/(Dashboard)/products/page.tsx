@@ -28,7 +28,7 @@ export default function ProductsPage() {
   const router = useRouter();
 
   const { product, error, loading } = useSelector(
-    (state: StoreState) => state.product
+    (state: StoreState) => state.product,
   );
 
   const limit = 12;
@@ -53,7 +53,7 @@ export default function ProductsPage() {
         limit,
         skip: page * limit,
         search: debouncedSearch || undefined,
-      })
+      }),
     );
   }, [dispatch, page, debouncedSearch]);
 
@@ -64,7 +64,7 @@ export default function ProductsPage() {
       title: string;
       price: number;
       thumbnail: string;
-    }
+    },
   ) => {
     e.stopPropagation();
 
@@ -78,7 +78,7 @@ export default function ProductsPage() {
         total: p.price,
         discountPercentage: 0,
         discountedTotal: p.price,
-      })
+      }),
     );
 
     setOpenToast(true);
@@ -86,7 +86,13 @@ export default function ProductsPage() {
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" mt={10}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: 10,
+        }}
+      >
         <CircularProgress />
       </Box>
     );
@@ -94,7 +100,13 @@ export default function ProductsPage() {
 
   if (error) {
     return (
-      <Typography color="error" textAlign="center" mt={5}>
+      <Typography
+        sx={{
+          color: "error",
+          textAlign: "center",
+          mt: 5,
+        }}
+      >
         Something went wrong
       </Typography>
     );
@@ -102,8 +114,17 @@ export default function ProductsPage() {
 
   return (
     <Box>
-      <Box mb={4}>
-        <Typography variant="h4" fontWeight={700}>
+      <Box
+        sx={{
+          mb: 4,
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 700,
+          }}
+        >
           Products
         </Typography>
         <Typography color="text.secondary">
@@ -111,7 +132,11 @@ export default function ProductsPage() {
         </Typography>
       </Box>
 
-      <Box mb={3}>
+      <Box
+        sx={{
+          mb: 3,
+        }}
+      >
         <TextField
           fullWidth
           placeholder="Search products..."
@@ -162,10 +187,12 @@ export default function ProductsPage() {
               </Box>
 
               <Box
-                display="flex"
-                justifyContent="center"
-                mb={2}
-                sx={{ cursor: "pointer" }}
+                sx={{
+                  cursor: "pointer",
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 2,
+                }}
                 onClick={() => router.push(`/products/${p.id}`)}
               >
                 <Avatar
@@ -176,35 +203,58 @@ export default function ProductsPage() {
               </Box>
 
               <Typography
-                fontWeight={600}
-                textAlign="center"
-                sx={{ cursor: "pointer" }}
+                sx={{
+                  cursor: "pointer",
+                  textAlign: "center",
+
+                  fontWeight: 600,
+                }}
                 onClick={() => router.push(`/products/${p.id}`)}
               >
                 {p.title}
               </Typography>
 
               <Typography
-                textAlign="center"
-                fontSize={13}
-                color="text.secondary"
+                sx={{
+                  textAlign: "center",
+                  fontSize: 13,
+                  color: "text.secondary",
+                }}
               >
                 {p.brand}
               </Typography>
 
-              <Typography textAlign="center" fontWeight={700} mt={1}>
+              <Typography sx={{ textAlign: "center", fontWeight: 700, mt: 1 }}>
                 ${p.price}
               </Typography>
 
-              <Box display="flex" justifyContent="center" mt={1}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mt: 1,
+                }}
+              >
                 <Rating value={p.rating} precision={0.1} readOnly />
               </Box>
 
-              <Box display="flex" justifyContent="center" mt={2}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mt: 2,
+                }}
+              >
                 <Chip label={p.category} size="small" />
               </Box>
 
-              <Box display="flex" justifyContent="center" mt={2}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mt: 2,
+                }}
+              >
                 <Button
                   variant="outlined"
                   size="small"
@@ -219,11 +269,13 @@ export default function ProductsPage() {
       </Grid>
 
       <Box
-        mt={5}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        gap={2}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: 5,
+          alignItems: "center",
+          gap: 2,
+        }}
       >
         <Button
           variant="outlined"
@@ -233,7 +285,11 @@ export default function ProductsPage() {
           Prev
         </Button>
 
-        <Typography fontWeight={500}>
+        <Typography
+          sx={{
+            fontWeight: 500,
+          }}
+        >
           Page {page + 1} / {totalPages}
         </Typography>
 
@@ -252,7 +308,11 @@ export default function ProductsPage() {
         onClose={() => setOpenToast(false)}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert severity="success" variant="filled" onClose={() => setOpenToast(false)}>
+        <Alert
+          severity="success"
+          variant="filled"
+          onClose={() => setOpenToast(false)}
+        >
           Added to cart successfully
         </Alert>
       </Snackbar>

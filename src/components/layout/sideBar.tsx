@@ -48,7 +48,13 @@ export default function SideBar() {
       }}
     >
       {/* Links */}
-      <Box display="flex" flexDirection="column" gap={1}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+        }}
+      >
         {links.map((link) => {
           const active = pathname === link.href;
 

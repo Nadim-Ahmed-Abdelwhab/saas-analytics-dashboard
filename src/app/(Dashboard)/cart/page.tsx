@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, StoreState } from "@/store/store";
-import { decrease,  increase, remove } from "@/features/cartSlice";
+import { decrease, increase, remove } from "@/features/cartSlice";
 import {
   Box,
   Typography,
@@ -15,38 +15,35 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function CartPage() {
   const dispatch = useDispatch<Dispatch>();
-  const { cartData, loading } = useSelector(
-    (state: StoreState) => state.cart
-  );
+  const { cartData, loading } = useSelector((state: StoreState) => state.cart);
 
-
-  //  Loading
+  // ✅ Loading
   if (loading) {
     return (
-      <Typography textAlign="center" mt={5}>
-        Loading...
-      </Typography>
+      <Box sx={{ textAlign: "center", mt: 5 }}>
+        <Typography>Loading...</Typography>
+      </Box>
     );
   }
 
-  //  Empty
+  // ✅ Empty state
   if (!cartData || cartData.products.length === 0) {
     return (
-      <Typography textAlign="center" mt={5}>
-        Your cart is empty 🛒
-      </Typography>
+      <Box sx={{ textAlign: "center", mt: 8 }}>
+        <Typography variant="h5">Your cart is empty 🛒</Typography>
+      </Box>
     );
   }
 
   return (
     <Box>
       {/* Header */}
-      <Box mb={4}>
-        <Typography variant="h4" fontWeight={700}>
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h4" sx={{ fontWeight: 700 }}>
           Shopping Cart
         </Typography>
         <Typography color="text.secondary">
@@ -55,15 +52,20 @@ export default function CartPage() {
       </Box>
 
       <Grid container spacing={3}>
-        
-        {/* 🛒 Products */}
+        {/* Products */}
         <Grid size={{ xs: 12, md: 8 }}>
-          <Box display="flex" flexDirection="column" gap={2}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             {cartData.products.map((item) => (
               <Card key={item.id} sx={{ borderRadius: 3 }}>
                 <CardContent>
-                  <Box display="flex" alignItems="center" gap={2}>
-                    
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 2,
+                      flexWrap: "wrap",
+                    }}
+                  >
                     {/* Image */}
                     <Avatar
                       src={item.thumbnail}
@@ -72,34 +74,59 @@ export default function CartPage() {
                     />
 
                     {/* Info */}
-                    <Box flex={1}>
-                      <Typography fontWeight={600}>
+                    <Box
+                      sx={{
+                        flex: 1,
+                        minWidth: 150,
+                      }}
+                    >
+                      <Typography sx={{ fontWeight: 600 }}>
                         {item.title}
                       </Typography>
 
-                      <Typography color="text.secondary" fontSize={14}>
+                      <Typography color="text.secondary" sx={{ fontSize: 14 }}>
                         ${item.price}
                       </Typography>
                     </Box>
 
                     {/* Quantity */}
-                    <Box display="flex" alignItems="center" gap={1}>
-                      <IconButton size="small" onClick={()=>dispatch(decrease(item.id))}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 1,
+                      }}
+                    >
+                      <IconButton
+                        size="small"
+                        onClick={() => dispatch(decrease(item.id))}
+                      >
                         <RemoveIcon />
                       </IconButton>
 
                       <Typography>{item.quantity}</Typography>
 
-                      <IconButton size="small" onClick={()=>dispatch(increase(item.id))}>
+                      <IconButton
+                        size="small"
+                        onClick={() => dispatch(increase(item.id))}
+                      >
                         <AddIcon />
                       </IconButton>
-                      <IconButton size="small" onClick={()=>dispatch(remove(item.id))}>
-                        <DeleteIcon/>
+
+                      <IconButton
+                        size="small"
+                        onClick={() => dispatch(remove(item.id))}
+                      >
+                        <DeleteIcon />
                       </IconButton>
                     </Box>
 
                     {/* Total */}
-                    <Typography fontWeight={600}>
+                    <Typography
+                      sx={{
+                        fontWeight: 600,
+                      }}
+                    >
                       ${item.total.toFixed(2)}
                     </Typography>
                   </Box>
@@ -109,36 +136,49 @@ export default function CartPage() {
           </Box>
         </Grid>
 
-        {/*  Summary */}
+        {/* Summary */}
         <Grid size={{ xs: 12, md: 4 }}>
           <Card sx={{ borderRadius: 3 }}>
             <CardContent>
-              <Typography variant="h6" mb={2}>
+              <Typography variant="h6" sx={{ mb: 2 }}>
                 Order Summary
               </Typography>
 
-              <Box display="flex" justifyContent="space-between" mb={1}>
+              <Box
+                sx={{ mb: 1, display: "flex", justifyContent: "space-between" }}
+              >
                 <Typography>Items</Typography>
                 <Typography>{cartData.totalProducts}</Typography>
               </Box>
 
-              <Box display="flex" justifyContent="space-between" mb={1}>
+              <Box
+                sx={{ mb: 1, display: "flex", justifyContent: "space-between" }}
+              >
                 <Typography>Quantity</Typography>
                 <Typography>{cartData.totalQuantity}</Typography>
               </Box>
 
               <Divider sx={{ my: 2 }} />
 
-              <Box display="flex" justifyContent="space-between">
-                <Typography fontWeight={600}>Total</Typography>
-                <Typography fontWeight={700}>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                  }}
+                >
+                  Total
+                </Typography>
+                <Typography
+                  sx={{
+                    fontWeight: 700,
+                  }}
+                >
                   ${cartData.total.toFixed(2)}
                 </Typography>
               </Box>
             </CardContent>
           </Card>
         </Grid>
-
       </Grid>
     </Box>
   );

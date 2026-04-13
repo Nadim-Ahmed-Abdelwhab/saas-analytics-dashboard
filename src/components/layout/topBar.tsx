@@ -6,9 +6,11 @@ import ThemeToggle from "../theme/ThemeToggle";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "@/store/store";
 import { toggleSideBar } from "@/features/layOutSlice";
+import Logo from "../ui/Logo";
 
 export default function TopBar() {
   const dispatch = useDispatch<Dispatch>();
+
   return (
     <Box
       sx={{
@@ -23,27 +25,59 @@ export default function TopBar() {
         bgcolor: "background.paper",
       }}
     >
-      <Box display="flex" alignItems="center" gap={2}>
+      {/* LEFT */}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 1.5,
+        }}
+      >
         <IconButton onClick={() => dispatch(toggleSideBar())}>
           <MenuIcon />
         </IconButton>
 
-        <Typography
-          variant="h6"
+        {/* Logo + Name */}
+        <Box
           sx={{
-            fontWeight: 700,
-            color: "text.primary",
-            letterSpacing: 1,
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
           }}
         >
-          SaaS{" "}
-          <Box component="span" sx={{ color: "text.secondary" }}>
-            Dashboard
-          </Box>
-        </Typography>
+          <Logo size={36} />
+
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: 700,
+              color: "text.primary",
+              letterSpacing: 0.5,
+              fontSize: "18px",
+            }}
+          >
+            NexBoard{" "}
+            <Box
+              component="span"
+              sx={{
+                color: "text.secondary",
+                fontWeight: 500,
+              }}
+            >
+              Dashboard
+            </Box>
+          </Typography>
+        </Box>
       </Box>
 
-      <Box display="flex" alignItems="center" gap={1}>
+      {/* RIGHT */}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+        }}
+      >
         <ThemeToggle />
       </Box>
     </Box>

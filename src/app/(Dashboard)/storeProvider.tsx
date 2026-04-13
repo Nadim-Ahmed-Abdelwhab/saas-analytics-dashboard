@@ -14,10 +14,10 @@ function AppWrapper({ children }: { children: React.ReactNode }) {
 
   const { mode } = useSelector((state: StoreState) => state.theme);
 
-  // 🎨 Theme
+  // Theme
   const theme = useMemo(() => getTheme(mode), [mode]);
 
-  // 🌙 load theme
+  //  load theme
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
 
@@ -26,7 +26,7 @@ function AppWrapper({ children }: { children: React.ReactNode }) {
     }
   }, [dispatch]);
 
-  // 🔐 load user
+  //  load user
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
 

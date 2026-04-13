@@ -59,13 +59,27 @@ export default function LoginPage() {
             borderColor: "divider",
           }}
         >
-          <Typography fontWeight={600}>Demo Account</Typography>
+          <Typography
+            sx={{
+              fontWeight: 600,
+            }}
+          >
+            Demo Account
+          </Typography>
 
-          <Typography fontSize={13}>
+          <Typography
+            sx={{
+              fontSize: 13,
+            }}
+          >
             Username: <b>emilys</b>
           </Typography>
 
-          <Typography fontSize={13}>
+          <Typography
+            sx={{
+              fontSize: 13,
+            }}
+          >
             Password: <b>emilyspass</b>
           </Typography>
         </Box>
