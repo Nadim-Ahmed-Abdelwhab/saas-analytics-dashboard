@@ -12,7 +12,7 @@ export default function Logo({ size = 36 }: { size?: number }) {
         height: size,
         borderRadius: "10px",
 
-        // 🔥 colors من theme
+        //  colors من theme
         background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
 
         display: "flex",
