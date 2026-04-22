@@ -47,7 +47,6 @@ export default function OverviewPage() {
 
   const { cartData } = useSelector((state: StoreState) => state.cart);
 
-  // 🔥 fetch data
   useEffect(() => {
     if (!userData) dispatch(user({ limit: 20, skip: 0 }));
     if (!product) dispatch(productsData({ limit: 20, skip: 0 }));
@@ -56,7 +55,6 @@ export default function OverviewPage() {
 
   const loading = usersLoading || productsLoading || postsLoading;
 
-  // 🔥 derived cart data (FIXED)
   const totalQuantity =
     cartData?.products?.reduce((acc, item) => acc + item.quantity, 0) || 0;
 

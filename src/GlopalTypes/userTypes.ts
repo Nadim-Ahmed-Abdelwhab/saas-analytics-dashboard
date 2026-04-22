@@ -55,7 +55,7 @@ export interface Address {
   country: string;
 }
 
-// 📌 Coordinates
+//  Coordinates
 export interface Coordinates {
   lat: number;
   lng: number;

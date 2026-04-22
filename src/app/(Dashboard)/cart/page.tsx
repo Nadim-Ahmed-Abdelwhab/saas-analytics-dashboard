@@ -21,7 +21,7 @@ export default function CartPage() {
   const dispatch = useDispatch<Dispatch>();
   const { cartData, loading } = useSelector((state: StoreState) => state.cart);
 
-  // ✅ Loading
+  //  Loading
   if (loading) {
     return (
       <Box sx={{ textAlign: "center", mt: 5 }}>
@@ -30,7 +30,7 @@ export default function CartPage() {
     );
   }
 
-  // ✅ Empty state
+  // Empty state
   if (!cartData || cartData.products.length === 0) {
     return (
       <Box sx={{ textAlign: "center", mt: 8 }}>

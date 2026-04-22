@@ -173,7 +173,7 @@ export default function PostsPage() {
                   fontSize: 13,
                 }}
               >
-                👍 {p.reactions.likes} | 👎 {p.reactions.dislikes}
+                 {p.reactions.likes} |  {p.reactions.dislikes}
               </Typography>
             </Card>
           </Grid>

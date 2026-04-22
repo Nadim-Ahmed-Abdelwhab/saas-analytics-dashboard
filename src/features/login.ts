@@ -10,9 +10,9 @@ const initialState: AuthState = {
 };
 
 export const loginUser = createAsyncThunk<
-  User, // ✅ return type
-  { username: string; password: string }, // input
-  { rejectValue: string } // error type
+  User,
+  { username: string; password: string },
+  { rejectValue: string }
 >("login/loginUser", async (credentials, { rejectWithValue }) => {
   try {
     const { data } = await axios.post(
@@ -47,7 +47,6 @@ const loginSlice = createSlice({
       state.error = null;
     },
 
-    // 🔥 مهم جدًا
     setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
       state.isAuthenticated = true;
